@@ -31,6 +31,8 @@ const (
 // COUNTER: Speed per second
 // GAUGE: Original, DEFAULT
 var DataType = map[string]string{
+	"Writes": DELTA_PS, // sum of Com_(update*|replace*|insert*|delete*)
+
 	"Innodb_buffer_pool_reads":         DELTA_PS,
 	"Innodb_buffer_pool_read_requests": DELTA_PS,
 	"Innodb_compress_time":             DELTA_PS,

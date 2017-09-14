@@ -33,6 +33,21 @@ func mysqlState(m *MysqlIns, db mysql.Conn, sql string) ([]*MetaData, error) {
 		return nil, err
 	}
 
+	writeKeys := []string{
+		"Com_update",
+		"Com_update_multi",
+		"Com_insert",
+		"Com_insert_select",
+		"Com_insert",
+		"Com_insert_select",
+		"Com_replace",
+		"Com_replace_select",
+		"Com_delete",
+		"Com_delete_multi",
+	}
+	var writesSum int64
+	writesSum = 0
+
 	data := make([]*MetaData, len(rows))
 	i := 0
 	for _, row := range rows {
@@ -45,7 +60,18 @@ func mysqlState(m *MysqlIns, db mysql.Conn, sql string) ([]*MetaData, error) {
 
 		data[i] = NewMetric(key_)
 		data[i].SetValue(v)
+		for _, k := range writeKeys {
+			if k == key_ {
+				writesSum += v
+				break
+			}
+		}
 		i++
 	}
+
+	data[i] = NewMetric("Writes")
+	data[i].SetValue(writesSum)
+	i++
+
 	return data[:i], nil
 }
