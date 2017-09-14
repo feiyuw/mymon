@@ -69,9 +69,11 @@ func mysqlState(m *MysqlIns, db mysql.Conn, sql string) ([]*MetaData, error) {
 		i++
 	}
 
-	data[i] = NewMetric("Writes")
-	data[i].SetValue(writesSum)
-	i++
+	if writesSum != 0 {
+		data[i] = NewMetric("Writes")
+		data[i].SetValue(writesSum)
+		i++
+	}
 
 	return data[:i], nil
 }
