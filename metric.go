@@ -281,7 +281,7 @@ func NewMetric(name string) *MetaData {
 		Metric:      name,
 		Endpoint:    hostname(),
 		CounterType: dataType(name),
-		Tags:        fmt.Sprintf("port=%d", cfg.Port),
+		Tags:        "",
 		Timestamp:   time.Now().Unix(),
 		Step:        60,
 	}
