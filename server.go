@@ -35,15 +35,9 @@ func mysqlState(m *MysqlIns, db mysql.Conn, sql string) ([]*MetaData, error) {
 
 	writeKeys := []string{
 		"Com_update",
-		"Com_update_multi",
 		"Com_insert",
-		"Com_insert_select",
-		"Com_insert",
-		"Com_insert_select",
 		"Com_replace",
-		"Com_replace_select",
 		"Com_delete",
-		"Com_delete_multi",
 	}
 	var writesSum int64
 	writesSum = 0
